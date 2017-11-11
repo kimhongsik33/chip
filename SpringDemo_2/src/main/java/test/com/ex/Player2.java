@@ -17,6 +17,7 @@ public class Player2{
 	public void init(){
 		System.out.println("Before the create Bean2!");
 		System.out.println("Before the create Bean2!_master");
+		System.out.println("Before the create Bean2!_master2");
 	}
 	
 	@PreDestroy

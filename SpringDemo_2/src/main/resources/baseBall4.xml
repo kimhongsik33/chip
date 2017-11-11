@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+		>
+	<!-- ↑↑ Player2.java에서 어노테이션을 사용하기위해 지정해야 함　↑↑ -->
+	<!-- ↓↓ Player2.java에서 어노테이션을 사용하기위해 지정해야 함　↓↓ -->
+	<context:annotation-config />
+	<!-- ↑↑ Player2.java에서 어노테이션을 사용하기위해 지정해야 함　↑↑ -->
+	
+	<bean id="player1" class="test.com.ex.Player">
+		<constructor-arg value="Yoon" />
+		<constructor-arg value="28"/>
+	</bean>
+	
+	<bean id="player2" class="test.com.ex.Player2">
+		<constructor-arg value="Yoon" />
+		<constructor-arg value="28"/>
+	</bean>
+</beans>

@@ -13,12 +13,12 @@
 	<context:annotation-config />
 	<!-- ↑↑ Player2.java에서 어노테이션을 사용하기위해 지정해야 함　↑↑ -->
 	
-	<bean id="player1" class="test.com.ex.Player">
+	<bean id="player1" class="com.test.chapter14.Player">
 		<constructor-arg value="Yoon" />
 		<constructor-arg value="28"/>
 	</bean>
 	
-	<bean id="player2" class="test.com.ex.Player2">
+	<bean id="player2" class="com.test.chapter14.Player2">
 		<constructor-arg value="Yoon" />
 		<constructor-arg value="28"/>
 	</bean>

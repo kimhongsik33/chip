@@ -113,4 +113,24 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
  # BeanNameAware 인터페이스
  : 빈 객체가 자기자신의 이름을 알아야 할 경우 사용된다.
  : 클래스가 BeanNameAware 인터페이스를 구현한 경우 컨테이너는 setBeanName()메소드를 호출해서 빈 객체의 이름을 전달.
- : setBeanName(String arg) : 객체가 생성될 때 해당객체의 id나 name값을 전달 받는 메서드  
+ : setBeanName(String arg) : 객체가 생성될 때 해당객체의 id나 name값을 전달 받는 메서드
+ 
+[외부 파일을 이용한 빈 설정]
+## Chapter1-17. Environment를 이용한 빈 설정
+ : EnvironmentAware인터페이스를 활용해서 Environment객체를 얻는다.
+ : 외부 파일을 이용한 빈 설정.
+  - Environment인터페이스를 활용
+   > Context객체 --> getEnvironment() --> Environment객체 얻기
+   > Environment객체 --> getPropertySources객체 얻기
+   > PropertySources객체 --> 프로퍼티를 추가(addLast)하거나 추출(getProperty) 작업을 한다.  
+   
+   
+[외부 파일을 이용한 빈 설정]
+## Chapter1-18. xml에 외부 properties파일 불러오기
+ : 
+ 
+ 
+ 
+[외부 파일을 이용한 빈 설정]
+## Chapter1-19. java 코드에 외부 properties파일 불러오기
+ : 

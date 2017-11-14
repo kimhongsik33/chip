@@ -10,7 +10,10 @@
 		<config>src/main/resources/person.xml</config>
 		<config>src/main/resources/lifeBean.xml</config>
 		<config>src/main/resources/environment.xml</config>
+<<<<<<< HEAD
 		<config>src/main/resources/external.xml</config>
+=======
+>>>>>>> refs/remotes/origin/master
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

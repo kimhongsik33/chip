@@ -132,8 +132,12 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
  
 [외부 파일(프로퍼티 파일)을 이용한 빈 설정]
 ## Chapter1-19. java 코드에 외부 properties파일 불러오기
+<<<<<<< HEAD
  :
  
 [외부 파일(프로파일)을 이용한 빈 설정] 
 ## Chapter1-20. Profile속성을 이용한 빈설정
  
+=======
+ : 
+>>>>>>> refs/remotes/origin/master

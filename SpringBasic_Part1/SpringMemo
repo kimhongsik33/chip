@@ -199,7 +199,7 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
    - 공통관심 사항(cross-cutting concern) : 부가적인 기능(보조 업무)
     *비지니스 로직은 core + cross-cutting도 될수 있다.
    - Code : Primary Concern을 구현한 코드
-   - Advice : Cross-cutting Concern을 구현한 코드 
+   - Advice : Cross-cutting Concern을 구현한 코드 ,공통기능?
    - jointPoint : Code와 Advice를 연결해주는 설정 정보. Advice 연결 적용가능한 지점(메소드 호출, 필드값 변경) 
    - Point-cut : JointPoint의 부분집합으로 실제 Advice가 적용되는 포인트 지점(jointPoint)
    - Weaving : Code, Advice, Point-cut등을 조합해서 어플리케이션을 만들어 가는 과정.
@@ -213,5 +213,26 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
           스프링 AOP는 완전한 AOP를 지원하는 것이 목적이 아니라 엔터프라이즈 어플리케이션을 구현하는데 필요한 정도의 기능 제공을 목적으로 하고 있다.
           
     * AOP의 구현
-      - 설정파일을 이용한 구현
-      - 어노테이션을 이용한 구현  
+      - 설정파일을 이용한 구현(xml스키마 기반의 구현 방법)
+      - 어노테이션을 이용한 구현 (@AspectJ 어노테이션 기반의 AOP구현)
+      
+      
+## Chapter1-23. XML 스키마 기반의 AOP I
+
+  스프링에서 AOP 구현방법은 Proxy를 이용한다.
+  Client ----------> Proxy ----------> Target
+  (호출부)          (대리인/대행)          (핵심기능)
+  
+  
+ # XML기반의 AOP 구현과정
+  - 의존설정(pom.xml)
+   <!-- AOP -->
+   <dependency>
+       <groupId>org.aspectj</groupId>
+       <artifactId>aspectjweaver</artifactId>
+       <version>1.7.4</version>      
+   </dependency>
+
+  - 공통기능 클래스 제작 - Advice역할 클래스 
+  - XML파일에 Aspect
+  

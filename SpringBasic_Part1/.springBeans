@@ -10,10 +10,8 @@
 		<config>src/main/resources/person.xml</config>
 		<config>src/main/resources/lifeBean.xml</config>
 		<config>src/main/resources/environment.xml</config>
-<<<<<<< HEAD
-		<config>src/main/resources/external.xml</config>
-=======
->>>>>>> refs/remotes/origin/master
+		<config>src/main/resources/dev.xml</config>
+		<config>src/main/resources/honban.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

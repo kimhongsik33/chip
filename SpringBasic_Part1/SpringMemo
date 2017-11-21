@@ -236,3 +236,14 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
   - 공통기능 클래스 제작 - Advice역할 클래스 
   - XML파일에 Aspect
   
+  
+  ## Chapter1-24. XML 스키마 기반의 AOP II
+   
+   #Advice의 종류
+    <aop:before>          : 핵심기능이 실행되기 전에 Advice를 실행 
+    <aop:after-returning> : 정상적으로 핵심기능 실행 후에 Advice를 실행
+    <aop:after-throwing>  : 핵심기능 실행 중에 Exception이 발생 시 Advice를 실행
+    <aop:after>           : 핵심기능 실행 후에 Advice를 실행한다.(Exception이 발생해도 실행)
+    <aop:around>          : 핵심기능 실행 전,후 및 exception 발생시 Advice 실행
+    
+  

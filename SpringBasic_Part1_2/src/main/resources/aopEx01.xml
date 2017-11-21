@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+		
+		<!-- aspect tag : code(핵심기능) + advice(공통기능) -->
+	<!-- com.test.chpater23.*의 모든 소스가 포인트 컷이 된다. -->
+	<!-- around : advice(공통기능)의 한 종류, 포인트컷을 어디에다가 지정을 해야 할지 알려주는 advice  -->
+	<!-- #Advice의 종류
+		    <aop:before>          : 핵심기능이 실행되기 전에 Advice를 실행 
+		    <aop:after-returning> : 정상적으로 핵심기능 실행 후에 Advice를 실행
+		    <aop:after-throwing>  : 핵심기능 실행 중에 Exception이 발생 시 Advice를 실행
+		    <aop:after>           : 핵심기능 실행 후에 Advice를 실행한다.(Exception이 발생해도 실행)
+		    <aop:around>          : 핵심기능 실행 전,후 및 exception 발생시 Advice 실행
+    -->
+
+	<bean id="adviceLog" class="com.test.chapter23.AdviceLog"/>
+
+	    
+	<aop:config>
+		<aop:aspect id="prof" ref="adviceLog">
+			<aop:pointcut id="pcMethod" expression="within(com.test.chapter23.*)"/>
+			<aop:around pointcut-ref ="pcMethod" method="profile"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<bean id="student" class="com.test.chapter23.Student">
+		<property name="name" value="KIM"/>
+		<property name="studentId" value="111111"/>
+		<property name="age" value="20"/>
+		<property name="grade" value="2"/>
+	</bean>
+	
+	<bean id="staff" class="com.test.chapter23.Staff">
+		<property name="name" value="YOON"/>
+		<property name="age" value="20"/>
+		<property name="dept" value="IT Division."/>
+	</bean>
+</beans>

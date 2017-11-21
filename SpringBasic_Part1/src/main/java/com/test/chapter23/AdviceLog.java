@@ -7,7 +7,7 @@ public class AdviceLog {
 	//ProceedingJoinPoint객체는 원래 실행되어야 할 메서드(핵심 기능)
 	public Object profile(ProceedingJoinPoint joinPoint) throws Throwable{
 		String signStr = joinPoint.getSignature().toShortString();
-		System.out.println(signStr + "is start!");
+		System.out.println(signStr + " is start!");
 		
 		long startTime = System.currentTimeMillis();
 		try{

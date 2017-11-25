@@ -1,7 +1,6 @@
 package com.test.chapter23;
 
-import org.aspectj.lang.*;
-
+import org.aspectj.lang.ProceedingJoinPoint;
 
 public class AdviceLog {
 	

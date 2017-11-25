@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+	<bean id="service" class="com.test.chapter25.ServiceImpl" />
+	
+	<!-- Type에러가 발생시 : com.sun.proxy.$Proxy0 : proxy-target-class를 true로 한다. -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- POJO로 구현된 Advice빈 설정 -->
+	<bean id="loggingAdvice" class="com.test.chapter25.LoggingAdvice" />
+	<bean id="timeCheckAdvice" class="com.test.chapter25.TimeCheckAdvice" />
+	
+	<!-- AOP설정 : ServiceImpl의 모든 메소드에 loggingAdvice의 logging기능이 메소드 수행전에 적용되도록 설정 -->
+	<!-- beanId가 loggingAdvice를 참조해서 logging메소드를 핵심기능인ServiceImple안에 메소드를 실행하기 전에 실행한다. -->
+	<aop:config>
+		<aop:aspect ref="loggingAdvice">
+			<aop:before method="logging" pointcut="execution(* com.test.chapter25.ServiceImpl.*())"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- AOP설정 : aop:around일 경우 주의 필요 (해당 advice에서 joinPoint.proceed()코드가 반드시 필요) -->
+	<aop:config>
+		<aop:aspect ref="timeCheckAdvice">
+			<aop:around method="check" pointcut="execution(* com.test.chapter25.ServiceImpl.*())"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>

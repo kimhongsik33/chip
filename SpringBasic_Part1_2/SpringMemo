@@ -248,6 +248,7 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
     
   ## Chapter1-25. XML 스키마 기반의 AOP III
   
+<<<<<<< HEAD
   ## Chapter1-26. Advice 타입별 AOP
   
    #AspectJ Pointcut 표현식
@@ -268,6 +269,28 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
      // 아래 bean은 잘 사용되지 않음.
      bean      : bean(staff)  // staff빈에만 적용 
                : bean(*er)    // ~er로 끝나는 빈에만 적용 
+               
+               
+ ## Chapter1-27. @Aspect 어노테이션을 이용한 AOP
+  
+  ① 의존설정(pom.xml)
+  ② @Aspect 어노테이션을 이용한 Aspect클래스를 제작
+  ③ XML파일에 <aop:aspectJ-autoproxy />설정
+  
+  ------------Aspect Class------------
+  @Pointcut
+  
+  @Around
+  @Before
+  @AfterReturning
+  @AfterThrowing
+  @After
+  
+  ------------------------------------
+  
+ 
+=======
+>>>>>>> refs/remotes/origin/master
    
     
   

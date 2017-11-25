@@ -248,6 +248,26 @@ DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰
     
   ## Chapter1-25. XML 스키마 기반의 AOP III
   
+  ## Chapter1-26. Advice 타입별 AOP
+  
+   #AspectJ Pointcut 표현식
+     포인트컷을 지정할 때 사용하는 표현식으로 AspectJ문법을 사용한다.
+     *  : 모든
+     .  : 현재
+     .. : 0개이상
+     
+     within    : within(com.test.chapter26.*)     // com.test.chapter26패키지 안에 있는 모든 메소드
+               : within(com.test.chapter26..*)    // com.test.chapter26패키지 및 하위 패키지 안에 있는 모든 메소드
+               : within(com.test.chapter26.Staff) // com.test.chapter26.Staff 모든 메소드
+     
+     execution : execution(public void get*(..))           // public void형태로 모든 get계열의 메소드이고 파라메터가 0개 또는 그 이상.
+               : execution(* com.test.chapter26.*.*())     // com.test.chapter26패키지에 파라미터가 없는 모든 메소드
+               : execution(* com.test.chapter26..*.*.())   // com.test.chapter26패키지 & com.test.chapter26 하위패키지에 파라미터가 없는 모든 메서드.
+               : execution(* com.test.chapter26.Staff.*()) // com.test.chapter26.Staff 모든 메소드
+     
+     // 아래 bean은 잘 사용되지 않음.
+     bean      : bean(staff)  // staff빈에만 적용 
+               : bean(*er)    // ~er로 끝나는 빈에만 적용 
    
     
   

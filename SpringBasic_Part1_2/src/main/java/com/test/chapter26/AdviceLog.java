@@ -1,5 +1,6 @@
-package com.test.chapter23;
+package com.test.chapter26;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 public class AdviceLog {
@@ -19,4 +20,21 @@ public class AdviceLog {
 			System.out.println(signStr + " 경과 시간 : "+(endTime - startTime));		
 		}
 	}
+	
+	public void beforeAdvice(JoinPoint joinPoint){
+		System.out.println("beforeAdvice().....");
+	}
+	
+	public void afterReturningAdvice(){
+		System.out.println("afterReturningAdvice().....");
+	}
+	
+	public void afterThrowingAdvice(){
+		System.out.println("afterThrowingAdvice().....");
+	}
+	
+	public void afterAdvice(){
+		System.out.println("afterAdvice().....");
+	}
+
 }

@@ -1,296 +1,31 @@
-DI
-의존하는 객체에 대한 획득을 클래스에서 하지 않고 스프링 컨테이너가 주입(제공)해 준다.
-다시 말하면, AA클래스에서 BB bb = new BB();를 사용하지 않고 스프링 컨테이너가
-AA클래스를 생성할 때 만들어 놓은 BB클래스의 인스턴스(bean)를 주입 받는다.
-설정은 xml을 통해서 이루어진다.
+## SpringBasic_Part2
+## Chapter2-1. 스프링 MVC 흐름과 구성 컴포넌트
 
-##인터페이스를 이용해 의존성을 낮춤
-
------------------
-  Service객체                       인터페이스
-                  -------------->    DAO
-  DAO dao                       -------------
-                                   ^      ^
-                                   ㅣ     ㅣ
------------------                 aDAO  bDAO 
-                                   객체   객체
-    dao = new aDAO()
-    dao = new bDAO()
-
-위의 그림은 의존성이 낮아진다.
-코드의 변경없이 xml의 설정만으로 개발자가 원하는 객체의 주입으로 바꿀 수 있음.
-
-
-
-##의존성 주입 종류
-1.Setter(설정 메소드)를 이용한 주입
-  : 설정 메소드를 사용해서 의존성을 주입하는 것
-2.Constructor(생성자)를 이용한 주입
-  : 생성자를 사용해서 의존성을 주입하는 것
-
-##의존성 주입(DI)의 장점
-DI를 사용하면 개발 계획시에 시간이 요구되지만 , 규모가 큰 프로젝트에서 유지보수 업무를 
-한다면 DI개발의 장점을 느낄 수 있다.  
-
-##의존관계 설정 방법
-1. XML파일을 이용한 설정방법
-2. XML과 JAVA를 혼용해서 사용하는 방법   12강
-  : 어노테이션(Metadata)을 이용한다. 
-    -jdk5부터 등장한 개념  
-     ex)@Override
-        어노테이션은
-    - 컴파일러에게 정보를 알려주거나
-    - 컴파일 할 때와 설치시 작업을 지정하거나
-    - 실행할 때 별도의 처리가 필요한 경우
-        사용한다.
-       클래스, 변수, 메소드 등 모든 요소에 선언이 가능하다.
-   
-   # @Configuration : 클래스앞에 선언. "이 클래스는 스프링 설정에 사용되는 클래스입니다." 라고 알려주는 어노테이션
-   # @Bean : 메소드 앞에 선언, "객체를 생성"
-   
-   
- ##XML과 JAVA를 혼용해서 사용하는 방법
-  :XML파일과 JAVA파일을 같이 사용해서 스프링을 설정하는 방법
-
-  　●com.test.diEx08
-  　　→XML파일(baseBall3.xml)에서 JAVA파일(ConfigApp.java)를 불어오는 패턴
-  　　→XML파일(baseBall3.xml)에[<context:annotation-config />]를 지정해서 자바파일의 config파일을 사용하겠다고 지정한다.
-                   그후 <bean class="com.test.diEx08.ConfigApp" />를 지정함으로써 자바파일에 지정되어 있는 @Configuration
-                  의 클래스를 XML에서 사용할수 있도록한다.
-                
-  　●com.test.diEx09
-  　　→JAVA파일(ConfigApp.java)에서 XML을 불러오는 패턴
-  　　→XML데이터를 가져올 때 자바 파일의 클래스 위에 [@ImportResource("classpath:baseBall4.xml")]
-                   를 지정해서 XML데이터를 가져올 수 있도록 한다.
+ #Spring MVC흐름
+ 
+  1) client ------> Dispatcher Servlet // 요청을 수신
   
- 
- ## 스프링 컨테이너 생명 주기
- 
- 　스프링 컨테이너 생성 : ~~ = new GenericXmlApplicationContext();
-  　　→설정        : ctx.load("classpath:~~~.xml");
-                 ctx.refresh();
-  　　→사용        : Player player = ctx.getBean("player", Player.class);
-  　　→종료        : ctx.close();
- 
-## 빈의 라이프 사이클
- ctx.refresh() 과정에서 빈이 생성
- ctx.close() 컨테이너가 소멸하는 단계에서 빈도 소멸
- 
- InitializingBean 인터페이스
- 	public void afterPropertiesSet() throws Exception
- 	
- DisposableBean 인터페이스
- 	public void destroy() throws Exception
- 	
- InitializingBean, DisposableBean 인터페이스는 따로 구현해도 되고, 동시에 구현해도 된다.
- 
- 
-	#어노테이션을 활용한 처리
- 	@PostConstructor
- 		public void initMethod(){}
- 	
- 	@PreDestroy
- 		public void destroyMethod(){}
- 		
-## Chapter1-15. 빈의 범위(scope)
-## 빈의 범위
- 
- 범위는 해당하는 객체가 어디까지 영향을 미치는지 결정하는 것
- <bean>태그의 속성 값 : default값은 singleton
- singleton : 스프링 컨테이너에 의해 한개의 빈 객체만 생성
- prototype : 빈을 사용할 때 마다 객체를 생성
- request : HTTP요청마다 빈 객체를 생성 (WebApplicationContext에서만 적용)
- session : HTTP세션마다 빈 객체를 생성 (WebApplicationContext에서만 적용)
- global-session : global HTTP 세션에 대해 빈 객체를 생성
- 
-
- ## Chapter1-16. 사용자 초기화 메소드 및 사용자 소멸 메소드 설정하기
- 
- :객체의 생성과 소멸시에 특정 메소드를 실행시키고 싶을 때 사용한다.
-  init-method : 커스텀 초기화 메소드를 지정하는 <bean>태그의 속성
-  destroy-method : 커스텀 소멸 메소드를 지정하는 <bean>태그의 속성
+  2) Dispatcher Servlet -------> Handler Mapping // 컨트롤러 문의
   
- # BeanNameAware 인터페이스
- : 빈 객체가 자기자신의 이름을 알아야 할 경우 사용된다.
- : 클래스가 BeanNameAware 인터페이스를 구현한 경우 컨테이너는 setBeanName()메소드를 호출해서 빈 객체의 이름을 전달.
- : setBeanName(String arg) : 객체가 생성될 때 해당객체의 id나 name값을 전달 받는 메서드
- 
-
-[외부 파일을 이용한 빈 설정]
-## Chapter1-17. Environment를 이용한 빈 설정
- : EnvironmentAware인터페이스를 활용해서 Environment객체를 얻는다.
- : 외부 파일을 이용한 빈 설정.
-  - Environment인터페이스를 활용
-   > Context객체 --> getEnvironment() --> Environment객체 얻기
-   > Environment객체 --> getPropertySources객체 얻기
-   > PropertySources객체 --> 프로퍼티를 추가(addLast)하거나 추출(getProperty) 작업을 한다.  
-   
-   
-[외부 파일(프로퍼티 파일)을 이용한 빈 설정]
-## Chapter1-18. xml에 외부 properties파일 불러오기
- : 
- 
-[외부 파일(프로퍼티 파일)을 이용한 빈 설정]
-## Chapter1-19. java 코드에 외부 properties파일 불러오기
-<<<<<<< HEAD
- :
- 
-[외부 파일(프로파일)을 이용한 빈 설정] 
-## Chapter1-20. Profile속성을 이용한 빈설정
- 
-
-## Chpater1-21. IoC의 개념 정리
-
- : IoC(Inversion of Control) 
-   --> 프로그램의 제어 흐름 구조가 바뀌는 것.
-   --> 일반 적인 프로그램의 흐름 구조는 main()과 같은 프로그램이 시작되는 지점에서 사용할 오브젝트를 결정, 생성하고, 
-            생성된 오브젝트 내의 메소드를 호출하는 작업을 반복하는 구조이다.
-            즉, 모든 작업의 구조를 사용하는 쪽에서 제어하는 구조  
- 
-   --> IoC는 제어 흐름의 개념을 거꾸로 뒤집는 개념이다. 오브젝트는 자신이 사용할 오브젝트를 스스로 생성하거나 선택하지 않는다.
-            모든 제어 권한을 자신이 아닌 다른 대상에게 위임하는것.
-            프로그램의 시작을 담당하는 main()같은 엔트리 포인트를 제외하면
-            모든 오브젝트는 제어 권한을 위임받은 특별한 오브젝트에 의해 결정되고 만들어지는것 
-
-   # IoC의 구현방법
-   .DL(Dependency Lookup) : 의존성 검색
-     --> 저장소에 저장되어 있는 빈(Bean)에 접근하기 위해 개발자들이 컨테이너에서 제공하는 API를 이용하여 Bean을 Lookup하는것.
-        --> 하지만 이방법은 컨테이너에 대한 의존성이 높아지게 되므로 좋지 않다.
-   .DI(Dependency Injection) : 의존성 주입
-     --> DL을 사용시에는 컨테이너에대한 종속성이 증가하기 때문에 이러한 종속성을 줄이기 위해서 DI를 사용한다.
-     --> 각 계층사이 , 각 객체(클래스) 사이에 필요로 하는 의존 관계를 제3의 위임을 받은  컨테이너가 자동으로 연결해 주는 것.
-     --> 각 클래스 사이의 의존관계를 빈 설정(Bean Definition) 정보를 바탕으로 컨테이너가 자동으로 연결해 주는것.
-     
-       -- setter Injection
-       -- constructor Injection
-       
-   #IoC의 용어정리
-   ●bean : 스프링에서는 제어권을 가지고 직접 만들고 관계를 부여하는 오브젝트
-   		자바빈, EJB의 빈과 비슷한 오브젝트 단위의 어플리케이션 컴포넌트를 의미.
-   		스프링 빈은 스프링 컨테이너가 생성, 관계설정, 사용 등을 제어해주는 오브젝트를 가리킨다.
-   ●bean Factory : 스프링의 IoC를 담당하는 핵심 컨테이너
-        빈을 등록, 생성, 조회, 반환, 관리 기능과 함께, 스프링에서의 각종 부가서비스를 추가로 제공한다.
-        ~~ApplicationContext에서 bean factory를 상속하고있다.
-             그래서 BeanFactory는 bean factory가 구현하는 Interface이다.(getBean()메소드가 정의)
-             
-   ●application context : bean Factory를 확장한 IoC컨테이너
-   : ApplicationContext는 인터페이스이며 BeanFactory를 상속하고 있다.
-       
-   ●configuration metadata(설정정보 / 설정 메타정보)
-   : application context 혹은 bean factory가 IoC를 적용하기 위해 사용하는 메타정보
-     -> 스프링의 설정정보는 컨테이너에 어떤 기능을 설정하거나 조정하는 경우에 사용되기도 하고, 주로 빈을 생성 구성하는 용도로 사용된다.
-     
-   ●container(IoC Container)
-   : IoC방식으로 Bean을 관리한다는 의미에서 bean factory나 application context를 가리킨다.
-     (스프링 컨테이너 = application context)
-     application context는 그자체로는 ApplicationContext인터페이스를 구현한 오브젝트이다.
-        하나의 어플리케이션에는 보통 여러개의 ApplicationContext Object가 만들어진다.
-        이를 통칭해서 스프링 컨테이너라고 부른다.
-        
-        
- ## Chapter1-22. AOP 개념 이해
- 
-  # AOP : 관점지향프로그램
-   -> 기존의 OOP를 보완한 개념.(핵심사항과 공통사항을 분리하여 구현)
-   - AOP는 primary concern과 cross-cutting concern을 별도의 코드로 구현해서 최종적으로 이 둘을 조합해서 완성하는 것.
-   
-   # 주요용어
-   - 핵심관심 사항(core(primary) concern) : 비지니스 로직(주 업무)
-   - 공통관심 사항(cross-cutting concern) : 부가적인 기능(보조 업무)
-    *비지니스 로직은 core + cross-cutting도 될수 있다.
-   - Code : Primary Concern을 구현한 코드
-   - Advice : Cross-cutting Concern을 구현한 코드 ,공통기능?
-   - jointPoint : Code와 Advice를 연결해주는 설정 정보. Advice 연결 적용가능한 지점(메소드 호출, 필드값 변경) 
-   - Point-cut : JointPoint의 부분집합으로 실제 Advice가 적용되는 포인트 지점(jointPoint)
-   - Weaving : Code, Advice, Point-cut등을 조합해서 어플리케이션을 만들어 가는 과정.
-   - Target : 핵심사항(core)이 구현된 객체
-   
-   # AOP(Aspect Oriented Programmming)의 Aspect는 Advice와 Point-cut을 함께 지칭 하는 단어.(공통관심사항(부가기능)이 적용되는 포인트 지점.)
-   
-    * 스프링은 자체적인 프록시 기반의 AOP를 지원 
-          필드값 변경과 같은 JointPoint는 사용할 수 없다.
-          메소드 호출 JointPoint만 사용한다.
-          스프링 AOP는 완전한 AOP를 지원하는 것이 목적이 아니라 엔터프라이즈 어플리케이션을 구현하는데 필요한 정도의 기능 제공을 목적으로 하고 있다.
-          
-    * AOP의 구현
-      - 설정파일을 이용한 구현(xml스키마 기반의 구현 방법)
-      - 어노테이션을 이용한 구현 (@AspectJ 어노테이션 기반의 AOP구현)
-      
-      
-## Chapter1-23. XML 스키마 기반의 AOP I
-
-  스프링에서 AOP 구현방법은 Proxy를 이용한다.
-  Client ----------> Proxy ----------> Target
-  (호출부)          (대리인/대행)          (핵심기능)
+  3) Dispatcher Servlet -------> Handler Adapter // 요청을 controller에게 전송
+  
+  4) Controller -------> Handler Adapter // 요청결과와 뷰에 대한 정보를 리턴한다.
+  
+  5) Handler Adapter --------> Dispatcher Servlet // Model And View 객체를 만들어서 전달
+  
+  6) Dispatcher Servlet --------> View Resolver // 응답할 View를 요청한다.
+  
+  7) Dispatcher Servlet --------> View // View를 이용해서 응답을 한다.  
+  
+  # Handler == Controller
+  # Handler Mapping -----> Handler Adapter (일대일 매핑) 
   
   
- # XML기반의 AOP 구현과정
-  - 의존설정(pom.xml)
-   <!-- AOP -->
-   <dependency>
-       <groupId>org.aspectj</groupId>
-       <artifactId>aspectjweaver</artifactId>
-       <version>1.7.4</version>      
-   </dependency>
+## Chapter2-2. 스프링 MVC 프로젝트의 구조
 
-  - 공통기능 클래스 제작 - Advice역할 클래스 
-  - XML파일에 Aspect
-  
-  
-  ## Chapter1-24. XML 스키마 기반의 AOP II
-   
-   #Advice의 종류
-    <aop:before>          : 핵심기능이 실행되기 전에 Advice를 실행 
-    <aop:after-returning> : 정상적으로 핵심기능 실행 후에 Advice를 실행
-    <aop:after-throwing>  : 핵심기능 실행 중에 Exception이 발생 시 Advice를 실행
-    <aop:after>           : 핵심기능 실행 후에 Advice를 실행한다.(Exception이 발생해도 실행)
-    <aop:around>          : 핵심기능 실행 전,후 및 exception 발생시 Advice 실행
-    
-  ## Chapter1-25. XML 스키마 기반의 AOP III
-  
-<<<<<<< HEAD
-  ## Chapter1-26. Advice 타입별 AOP
-  
-   #AspectJ Pointcut 표현식
-     포인트컷을 지정할 때 사용하는 표현식으로 AspectJ문법을 사용한다.
-     *  : 모든
-     .  : 현재
-     .. : 0개이상
-     
-     within    : within(com.test.chapter26.*)     // com.test.chapter26패키지 안에 있는 모든 메소드
-               : within(com.test.chapter26..*)    // com.test.chapter26패키지 및 하위 패키지 안에 있는 모든 메소드
-               : within(com.test.chapter26.Staff) // com.test.chapter26.Staff 모든 메소드
-     
-     execution : execution(public void get*(..))           // public void형태로 모든 get계열의 메소드이고 파라메터가 0개 또는 그 이상.
-               : execution(* com.test.chapter26.*.*())     // com.test.chapter26패키지에 파라미터가 없는 모든 메소드
-               : execution(* com.test.chapter26..*.*.())   // com.test.chapter26패키지 & com.test.chapter26 하위패키지에 파라미터가 없는 모든 메서드.
-               : execution(* com.test.chapter26.Staff.*()) // com.test.chapter26.Staff 모든 메소드
-     
-     // 아래 bean은 잘 사용되지 않음.
-     bean      : bean(staff)  // staff빈에만 적용 
-               : bean(*er)    // ~er로 끝나는 빈에만 적용 
-               
-               
- ## Chapter1-27. @Aspect 어노테이션을 이용한 AOP
-  
-  ① 의존설정(pom.xml)
-  ② @Aspect 어노테이션을 이용한 Aspect클래스를 제작
-  ③ XML파일에 <aop:aspectJ-autoproxy />설정
-  
-  ------------Aspect Class------------
-  @Pointcut
-  
-  @Around
-  @Before
-  @AfterReturning
-  @AfterThrowing
-  @After
-  
-  ------------------------------------
-  
+## Chapter2-3. 컨트롤러 작성하기 및 한글 처리
+
+ servlet-context.xml에서 <annotation-driven />가 없으면 어노테이션을 쓸 수가 없다.
+
  
-=======
->>>>>>> refs/remotes/origin/master
-   
-    
   

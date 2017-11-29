@@ -41,6 +41,7 @@
  # ModelAndView객체를 이용한 데이터 전달
  1) ModelAndView객체를 생성 
  2) Model객체에 데이터를 추가시킨다.(addObject()이용)
+<<<<<<< HEAD
  3) 뷰이름을 설정한다.(setViewName()이용)
  
 ## Chapter2-5. HttpServletRequest를 이용한 데이터 전송
@@ -48,3 +49,6 @@
 ## Chapter2-6. Command 객체 및 @RequestParam를 이용한 데이터 전송
 
  #
+=======
+ 3) 뷰이름을 설정한다.(setViewName()이용)  
+>>>>>>> refs/remotes/origin/master

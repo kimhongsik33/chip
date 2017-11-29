@@ -1,0 +1,31 @@
+## SpringBasic_Part2
+## Chapter2-1. 스프링 MVC 흐름과 구성 컴포넌트
+
+ #Spring MVC흐름
+ 
+  1) client ------> Dispatcher Servlet // 요청을 수신
+  
+  2) Dispatcher Servlet -------> Handler Mapping // 컨트롤러 문의
+  
+  3) Dispatcher Servlet -------> Handler Adapter // 요청을 controller에게 전송
+  
+  4) Controller -------> Handler Adapter // 요청결과와 뷰에 대한 정보를 리턴한다.
+  
+  5) Handler Adapter --------> Dispatcher Servlet // Model And View 객체를 만들어서 전달
+  
+  6) Dispatcher Servlet --------> View Resolver // 응답할 View를 요청한다.
+  
+  7) Dispatcher Servlet --------> View // View를 이용해서 응답을 한다.  
+  
+  # Handler == Controller
+  # Handler Mapping -----> Handler Adapter (일대일 매핑) 
+  
+  
+## Chapter2-2. 스프링 MVC 프로젝트의 구조
+
+## Chapter2-3. 컨트롤러 작성하기 및 한글 처리
+
+ servlet-context.xml에서 <annotation-driven />가 없으면 어노테이션을 쓸 수가 없다.
+
+ 
+  

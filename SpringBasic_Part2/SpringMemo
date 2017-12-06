@@ -59,5 +59,34 @@
 
 ## Chapter2-12. @MethodAttribute를 이용하여 커멘드 객체 초기화 하기
 
+<<<<<<< HEAD
+## Chapter2-13. redirect: 사용하기 
+=======
+
+## Chapter2-14. 폼유효성 검사 처리과정 이해
+
+ [유효성검사]
+ Validator : org.springframework.validation.Validator인터페이스
  
+  # 구현메소드
+   - boolean supports(Class<?> arg0) 
+     : Validator가 해당 클래스에 대한 값 검증을 지원하는지 여부를 리턴.
+   - void validate(Object target, Errors errors)
+     : target객체에 대한 검증을 실행하는 메소드. 
+            만약 검증결과 문제가 있을 경우에는 errors 객체에 에러 정보를 저장한다.
+   
+   ##커맨드 객체에 검증 코드 추가 방법
+    - @RequestMapping 어노테이션 메서드에서 커맨드객체 다음 파라미터로 BindingResult타입 이나 Errors타입의 파라미터를 추가한다.
+    
+    - @RequestMapping 어노테이션 메서드에서 Validator객체를 생성 후, validate()메서드를 호출한다.
+       이때 커맨드객체와 BindingResult 또는 Errors 타입의 파라미터를 전달한다.
+       
+    - Errors.hasErrors()메서드를 이용하면 에러가 있는지 여부를 확인 할 수 있다.
+      에러가 있는 경우 true, 없는경우 false를 리턴
+      
+ 
+ ## Chapter2-15. Validator 를 이용한 유효성 체크
+  
+ 
+>>>>>>> refs/remotes/origin/master
 

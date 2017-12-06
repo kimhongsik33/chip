@@ -55,5 +55,9 @@
 
 ## Chapter2-10. @MethodAttribute 사용 및 새로운 패키지에 새로운 컨트롤러 추가하기
 
+## Chapter2-11. @MethodAttribute를 이용하여 뷰에 모델 전달하기
+
+## Chapter2-12. @MethodAttribute를 이용하여 커멘드 객체 초기화 하기
+
  
 

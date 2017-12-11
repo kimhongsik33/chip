@@ -1,6 +1,7 @@
 package com.test.mvc.validation;
 
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.test.mvc.dto.Member;
@@ -18,17 +19,19 @@ public class MemberValidator implements Validator {
 		System.out.println("-------------validate() is called-------------");
 		Member member = (Member)obj;
 		
-		String memberName = member.getName();
-		if(memberName == null || memberName.trim().isEmpty()){
-			System.out.println("Please, input the Name information");
-			errors.rejectValue("name", "error is occured when input");
-		}
-		
-		String memberId = member.getId();
-		if(memberId == null || memberId.trim().isEmpty()){
-			System.out.println("Please, input the Id information");
-			errors.rejectValue("id", "error is occured when input");
-		}
+//		String memberName = member.getName();
+//		if(memberName == null || memberName.trim().isEmpty()){
+//			System.out.println("Please, input the Name information");
+//			errors.rejectValue("name", "error is occured when input");
+//		}
+
+//		String memberId = member.getId();
+//		if(memberId == null || memberId.trim().isEmpty()){
+//			System.out.println("Please, input the Id information");
+//			errors.rejectValue("id", "error is occured when input");
+//		}
+	
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "error is occured when input");
 		
 		int memberNo = member.getMemberNo();
 		if(memberNo == 0){

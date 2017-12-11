@@ -61,6 +61,7 @@
 
 <<<<<<< HEAD
 ## Chapter2-13. redirect: 사용하기 
+<<<<<<< HEAD
 =======
 
 ## Chapter2-14. 폼유효성 검사 처리과정 이해
@@ -86,7 +87,51 @@
       
  
  ## Chapter2-15. Validator 를 이용한 유효성 체크
-  
+ 
+ ## Chapter2-16. ValidationUtils클래스, @Valid, @InitBinder를 이용한 유효성 검사
+   
+   # ValidateUtils Class
+    : validate()메소드를 좀 더 편리하게 사용할 수 있도록 한 클래스
+    
+    //validate()메소드내에서 처리하는 코드
+    String memberName = member.getName();
+		if(memberName == null || memberName.trim().isEmpty()){
+			System.out.println("Please, input the Name information");
+			errors.rejectValue("name", "error is occured when input");
+		}
+		
+    --------> ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "error is occured when input");
+    
+   # @Valid, @InitBinder
+    : validate()를 직접 호출하지 않고 스프링 프레임워크에서 호출하는 방법.
+    
+    1. pom.xml에서 라이브러리를 추가 시켜야 한다.(의존 추가)
+	    <dependency>
+	    	<groupId>org.hibernate</groupId>               //com.test
+	    	<artifactId>hibernate-validator</artifactId>   //mvc
+	    	<version>4.2.0.Final</version>
+	    </dependency>  
+    
+    2. @Valid 를 아래와 같이 추가한다.
+    	@RequestMapping("/joinOk")
+		public String joinOk(@ModelAttribute("model") Member member, BindingResult result){}
+		-------->
+		@RequestMapping("/joinOk")
+		public String joinOk(@ModelAttribute("model") @Valid Member member, BindingResult result){
+		
+    3. @InitBind 를 아래와 같이 추가한다.
+        MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, result);
+		-------->
+		@InitBind
+		protected void initBinder(WebDataBinder binder){
+			binder.setValidator(new MemberValidator());
+		}
+		
+		
+=======
+=======
+>>>>>>> refs/remotes/origin/master
  
 >>>>>>> refs/remotes/origin/master
 

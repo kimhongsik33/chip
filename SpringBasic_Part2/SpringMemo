@@ -61,6 +61,7 @@
 
 <<<<<<< HEAD
 ## Chapter2-13. redirect: 사용하기 
+<<<<<<< HEAD
 =======
 
 ## Chapter2-14. 폼유효성 검사 처리과정 이해
@@ -87,6 +88,9 @@
  
  ## Chapter2-15. Validator 를 이용한 유효성 체크
   
+=======
+=======
+>>>>>>> refs/remotes/origin/master
  
 >>>>>>> refs/remotes/origin/master
 

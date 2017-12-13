@@ -128,9 +128,83 @@
 			binder.setValidator(new MemberValidator());
 		}
 		
-		
+## Chapter2-17. Errors , BindingResult 인터페이스
+ 
+  #Errors인터페이스
+   : org.springFramework.validation.Errors
+   : 유효성 검증 결과를 저장할 때 사용
+   <Errors인터페이스 메소드 (반환타입 void)>
+    .reject(String errorCode) 
+     ->전 객체에 대한 글로벌 에러코드를 추가
+    .reject(String errorCode, String defaultMessage)
+     ->전 객체에 대한 글로벌 에러코드를 추가하고,
+            에러코드에 대한 메세지가 존재하지 않을 경우 디폴트 메세지를 사용한다.
+    .reject(String errorCode, Object[] errorArgs, String defaultMessage)
+     ->전 객체에 대한 글로벌 에러코드를 추가하고,
+            메세지 인자로 errorArgs를 전달하고,
+            에러코드에 대한 메세지가 존재하지 않을 경우 디폴트 메세지를 사용한다.
+            
+    .rejectValue(String field, String errorCode)
+     ->필드에 대한 에러코드를 추가
+    .rejectValue(String field, String errorCode, String defaultMessage)
+     ->필드에 대한 에러코드를 추가
+            에러코드에 대한 메세지가 존재하지 않을 경우 디폴트 메세지를 사용한다.
+    .rejectValue(String field, String errorCode, Object[] errorArgs, String defaultMessage)
+     ->필드에 대한 에러코드를 추가
+            메세지 인자로 errorArgs를 전달하고,
+            에러코드에 대한 메세지가 존재하지 않을 경우 디폴트 메세지를 사용한다.
+    
+    --=======================================        
+    --Error인터페이스의 에러발생여부 확인하기 위한 메서드
+    --=======================================
+    .boolean hasErrors()
+     --->에러가 존재하는 경우 true리턴 
+    .int getErrorCount()
+     --->에러개수를 리턴
+    .boolean hasGlobalErrors
+     --->reject()메소드를 이용해서 추가된 글로벌 에러가 존재할 경우 true리턴
+    .int getGlobalErrorCount() 
+     --->reject()메소드를 이용해서 추가된 글로벌 에러개수를 리턴
+    .boolean hasFieldErrors()
+     --->rejectValue() 메소드를 이용해서 추가된 에러가 존재할 경우 true리턴.
+    .int getFieldErrorCount()  
+     --->rejectValue() 메소드를 이용해서 추가된 에러개수를 리턴 
+    .boolean hasFieldErrors(String field)
+     --->rejectValue() 메소드를 이용해서 추가된 특정필드의 에러가 존재할 경우 true리턴.
+    .int getFieldErrorCount(String field)  
+     --->rejectValue() 메소드를 이용해서 추가된 특정필드의 에러개수를 리턴 
+     
+  #BindingResult
+   : org.springFramework.validation.BindingResult 
+   : Errors의 하위 인터페이스로 서 폼 값을 커맨드 객체에 바인딩한 결과를 저장하고 에러코드로 부터 에러 메세지를 가져온다.		
 =======
 =======
+
+
+ ##Chapter2-18. @Component의 이해
+ 
+  #@Component
+  
+  @Controller는 @Component를 상속받았다. 
+  
+  servlet-context.xml에서
+  <context:component-scan base-package="" /> 태그를 사용해서 스프링이 클래스(컴포넌트, 컨트롤러)를 검색할 패키지를 지정
+  <context:component-scan base-package="" /> 태그는 base-package에서 지정한 패키지에서 @Component가 적용된 클래스를
+                                                                               검색해서 빈으로 자동 등록한다.
+    따라서 XML설정파일이 다양한 빈 정보를 추가하지 않아도 된다.
+    
+  @Component("service01")
+  public class AbstractSvcImpl implements AbstractSvcImpl{
+  	private String name = "01";
+  	
+  	@Override
+  	public String getClassName(){
+  		return "AbstractSvcImpl - " + name; 
+  	}
+  }
+  
+  설정파일에서 <bean>태그로 작성한다면
+  <bean id="service01" class="com.spring.annotationEx.AbstractSvcImpl" />와 같은 방법이다.
 >>>>>>> refs/remotes/origin/master
  
 >>>>>>> refs/remotes/origin/master

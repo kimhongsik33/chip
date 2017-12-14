@@ -192,6 +192,7 @@
   <context:component-scan base-package="" /> 태그는 base-package에서 지정한 패키지에서 @Component가 적용된 클래스를
                                                                                검색해서 빈으로 자동 등록한다.
     따라서 XML설정파일이 다양한 빈 정보를 추가하지 않아도 된다.
+    *설정파일에서는 <context:annotaion-config>태그를 사용한다.
     
   @Component("service01")
   public class AbstractSvcImpl implements AbstractSvcImpl{
@@ -205,6 +206,26 @@
   
   설정파일에서 <bean>태그로 작성한다면
   <bean id="service01" class="com.spring.annotationEx.AbstractSvcImpl" />와 같은 방법이다.
+  
+## Chapter2-19. @Resource, AbstractController 인터페이스
+
+ @Resource
+  자바6 및 JEE5에 추가되었다.
+  어플리케이션에서 필요로 하는 자원을 자동으로 연결할 때 사용한다. 스프링2.5부터 지원하는 어노테이션.
+  의존하는 빈 객체를 전달할 때 사용.
+  설정파일에서는 
+  <context:annotation-config>태그를 사용해야 한다.
+  또는
+  <bean Class="org.springframework.beans.factory.annotation.CommonAnnotationBeanPostProcessor" />
+  클래스를 빈으로 등록시켜 사용하는 방법이 있다.
+
+## Chapter2-20. @AutoWired, @Qualifier
+
+ [@AutoWired]
+ - 의존관계가 자동으로 설정(type기반)
+ - 생성자, 필드, 메소드에 적용 가능
+ - set계열의 메소드가 아닌 메소드에도 적용이 가능
+
 >>>>>>> refs/remotes/origin/master
  
 >>>>>>> refs/remotes/origin/master

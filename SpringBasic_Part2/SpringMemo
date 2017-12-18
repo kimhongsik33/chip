@@ -226,7 +226,88 @@
  - 생성자, 필드, 메소드에 적용 가능
  - set계열의 메소드가 아닌 메소드에도 적용이 가능
 
+
+## Chapter2-21. 주요 ViewResolver 구현 클래스 및 다수의 ViewResolver 설정
+
+  [ViewResolver 구현 클래스와 다수의 ViewResolver 설정]
+  
+  #ViewResolver 구현 클래스
+  
+   ●InternalResourceViewResolver
+     : 뷰이름으로 부터 JSP나 Tiles연동을 위한 View객체를 리턴
+     : JSP나 HTML파일과 같이 웹 어플리케이션의 내부자원을 이용하여 뷰를 생성하는 AbstractUrlBasedView타입의 뷰객체를 리턴
+    
+      .기본적으로 사용하는 View 클래스
+      .prefix, suffix 프로퍼티를 사용
+      <bean id="internalResource" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      	  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    	  <property name="prefix" value="/WEB-INF/views/" />
+		  <property name="suffix" value=".jsp" />
+      </bean> 
+    
+   ●VelocityViewResolver
+     : 뷰이름으로 부터 Velocity 연동을 위한 View객체를 리턴
+    
+   ●VelocityLayoutResolver
+     : VelocityViewResolver와 동일한 기능을 제고하며, 추가로 Velocity의 레이아웃 기능을 제공한다.
+    
+   ●BeanNameViewResolver
+     : 뷰이름과 동일한 이름을 갖는 빈객체를 View객체로 사용
+     
+     .뷰의 이름과 동일한 이름을 갖는 빈을 뷰 객체로 사용
+     .주로 커스텀 View클래스를 뷰로 사용해야 하는 경우에 사용
+     
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+     	<bean id="download" class="com.spring.download.PdfDown" />
+     </bean>
+     
+     ---> 특정 컨트롤러에서 뷰의 이름을 download로 지정했을 경우, 위의com.spring.download.PdfDown 클래스가 처리를 한다. 
+    
+    
+   ●ResourceBundleViewResolver
+     : 뷰이름과 View객체간의 매핑정보를 저장하기 위해 자원 파일을 사용
+    
+   ●XmlViewResolver
+     : 뷰이름과 View객체간의 매핑정보를 저장하기 위해 Xml파일을 사용
+     
+     .뷰 이름과 동일한 이름을 갖는 빈을 뷰 객체로 사용
+     .별도의 xml설정 파일로 부터 빈 객체를 검색
+     
+     <bean id="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+     	<property name="location" value="/WEB-INF/views/aaa.xml" />
+     </bean>
+     
+  
+  
+  #다수의 ViewResolver 설정
+   . 하나의 DispatcherServlet은 한개 이상의 ViewResolver를 설정할 수 있다.
+   . order 프로퍼티를 이용하여 뷰 이름을 검사할 ViewResolver의 순서를 결정.
+   . order 프로퍼티의 값이 작을 수록 우선순위가 높다.
+         우선순위가 높은 ViewResolver가 null을 리턴하면, 다음우선순위의 ViewResolver에 뷰를 요청
+     
+                  ※   InternalResourceViewResolver는 마지막 우선순위를 갖도록 지정한다.
+             왜냐하면 null을 리턴하지 않기 때문에 우선순위가 마지막이 아닌경우에는 다음 순서의 ViewResolver가 사용되지 않는다.
+       
+       <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="1" /> 
+  	   <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
+  			<property name="order" value="2" />
+  			<property name="prefix" value="aaa/" />
+  			<property name="suffix" value=".jsp" />
+       </bean>
+  
+  
+  
+ ##Chapter2-22. 스프링 form 태그 라이브러리 사용하기
+ 
+  [폼 태그 라이브러리(커스텀 태그)]
+  : 버전 2.0부터 스프링은 JSP와 스프링 웹 MVC를 사용하는 경우 폼 요소를 다룰 수 있도록 데이터 바인딩과 관련된 광범위한 태그 세트를 제공한다.
+  : 폼태그 라이브러리는 sprimg-webmvc.jar에 있다.
+  
+  #form태그 
+   HTML 'form'태그를 생성하고 바인딩을 위해서 내부 태그에 바인딩 경로(path)를 지정한다.
+   
 >>>>>>> refs/remotes/origin/master
  
 >>>>>>> refs/remotes/origin/master
 
+ 

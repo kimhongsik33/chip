@@ -23,7 +23,7 @@
 	
 	<context:component-scan base-package="com.test.mvc.controller" />
 	<context:component-scan base-package="com.test.mvc.service" />
-	
+	<context:component-scan base-package="com.test.mvc.dto" />
 	
 	
 </beans:beans>

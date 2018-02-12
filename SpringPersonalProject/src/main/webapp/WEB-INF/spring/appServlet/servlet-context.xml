@@ -21,10 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.test.mvc.controller" />
-	<context:component-scan base-package="com.test.mvc.service" />
-	<context:component-scan base-package="com.test.mvc.dto" />
-	<context:component-scan base-package="com.test.mvc.customTag" />
+	<context:component-scan base-package="com.spring.test" />
+	
 	
 	
 </beans:beans>

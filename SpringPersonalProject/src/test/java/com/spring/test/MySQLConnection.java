@@ -9,9 +9,9 @@ import org.junit.Test;
 public class MySQLConnection {
 	
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://127.0.0.1:3308/kim_prac_schema01";
-	private static final String USER = "kim_hongsik";
-	private static final String PWD = "kim_hongsik";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/kim_schema01";
+	private static final String USER = "kimhongsik";
+	private static final String PWD = "kimhongsik";
 	
 	@Test
 	public void testConn() throws Exception{

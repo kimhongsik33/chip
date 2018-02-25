@@ -10,6 +10,6 @@
   	
   	<insert id="insertMember">
   		insert into tbl_member(user_id, user_password, user_name, email) values
-  		(#{user_id}, #{user_password}, #{user_name}, #{email}")
+  		(#{userId}, #{userPassword}, #{userName}, #{email})
   	</insert>
   </mapper>

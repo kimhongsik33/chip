@@ -151,6 +151,13 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.1.7.RELEASE</version>
 		</dependency>
+		<!-- Mybatis Log Library -->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

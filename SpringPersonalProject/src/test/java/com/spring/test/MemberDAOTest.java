@@ -25,7 +25,7 @@ public class MemberDAOTest {
 	@Test
 	public void testInsertMember() throws Exception{
 		MemberVO memberVo = new MemberVO();
-		memberVo.setUserId("testId");
+		memberVo.setUserId("testId2");
 		memberVo.setUserPassword("testPw1234");
 		memberVo.setUserName("Kim");
 		memberVo.setEmail("test@test.com");

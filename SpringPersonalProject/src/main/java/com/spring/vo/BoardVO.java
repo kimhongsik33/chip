@@ -46,4 +46,11 @@ public class BoardVO {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	@Override
+	public String toString() {
+		return "BoardVO [boardId=" + boardId + ", subject=" + subject + ", content="
+				+ content + ", writer=" + writer + ", registerDate=" + registerDate
+				+ ", hit=" + hit + "]";
+	}
 }

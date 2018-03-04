@@ -15,3 +15,12 @@ System.out.println();문을 사용하는 방법보다 향상된 방법으로 로
    . http://logback.qos.ch/
  - slf4j
    . http://www.slf4j.org/download.html 최신 릴리스버전을 다운로드 할 수 있다.
+
+   
+[개발 흐름]
+1. 테이블 생성
+2. VO객체 생성
+3. VO와 매핑작업을 하기 위해  XMLMapper작성
+4. DAO객체 생성
+5. 비지니스객체(Service)생성
+6. 컨트롤러 구현

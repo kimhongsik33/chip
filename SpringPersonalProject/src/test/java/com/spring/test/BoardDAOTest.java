@@ -31,10 +31,10 @@ public class BoardDAOTest {
 		boardDAO.insert(boardVO);
 	}*/
 	
-	/*@Test
+	@Test
 	public void readTest() throws Exception{
 		logger.info(boardDAO.read(1).toString());
-	}*/
+	}
 	
 	/*@Test
 	public void updateTest() throws Exception{
@@ -50,8 +50,10 @@ public class BoardDAOTest {
 		boardDAO.delete(3);
 	}*/
 	
+	/*
 	@Test
 	public void listTest() throws Exception{
 		logger.info(boardDAO.list().toString());
 	}
+	*/
 }

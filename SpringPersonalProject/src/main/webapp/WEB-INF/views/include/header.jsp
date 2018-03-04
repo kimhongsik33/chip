@@ -25,6 +25,9 @@
     <link href="/resources/assets/css/style-responsive.css" rel="stylesheet">
 
     <script src="/resources/assets/js/chart-master/Chart.js"></script>
+    <script src="/resources/assets/js/jquery-1.8.3.min.js"></script>
+    <!-- CDNの場合 -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,7 +48,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
+            <a href="index.html" class="logo"><b>SPRING PROJECT</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->

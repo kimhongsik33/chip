@@ -9,8 +9,8 @@
   		values (#{subject}, #{content}, #{writer})
   	</insert>
   	
-  	<select id="read" resultType="com.spring.vo.BoardVO">
-  		select board_id, subject, content, writer, register_date, hit
+  	<select id="read" resultType="BoardVO">
+  		select board_id As boardId, subject, content, writer, register_date As registerDate, hit
   		from tbl_board
   		where board_id = #{boardId}
   	</select>
@@ -26,7 +26,7 @@
   	
   	<select id="list" resultType="com.spring.vo.BoardVO">
   	<![CDATA[
-  		select board_id, subject, content, writer, register_date, hit
+  		select board_id As boardId, subject, content, writer, register_date As registerDate, hit
   		from tbl_board
   		where board_id > 0 
   		order by board_id desc, register_date desc

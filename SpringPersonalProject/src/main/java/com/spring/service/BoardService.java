@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.vo.BoardVO;
+import com.spring.vo.PageCriteria;
 
 public interface BoardService {
 	//データ作成
@@ -19,4 +20,7 @@ public interface BoardService {
 	
 	//データリストを取得
 	public List<BoardVO> list() throws Exception;
+	
+	//1ページごとに何件のレコードを取得するか
+	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception;
 }

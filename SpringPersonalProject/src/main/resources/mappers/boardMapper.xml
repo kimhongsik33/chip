@@ -33,4 +33,25 @@
   	]]>
   	</select>
   	
+  	<select id="listPage" resultType="BoardVO">
+  	<![CDATA[
+  		select board_id As boardId, subject, content, writer, register_date As registerDate, hit
+  		from tbl_board
+  		where board_id > 0
+  		order by board_id desc, register_date desc
+  		limit #{page}, 10
+  	]]>
+  	</select>
+  	
+  	<!-- #{startPage}는 getStartPage()메소드를 호출하는 것과 같다.  -->
+  	<select id="listCriteria" resultType="BoardVO">
+  	<![CDATA[
+  		select board_id As boardId, subject, content, writer, register_date As registerDate, hit
+  		from tbl_board
+  		where board_id > 0
+  		order by board_id desc, register_date desc
+  		limit #{startPage}, #{numPerPage}
+  	]]>
+  	</select>
+  	
   </mapper>

@@ -1,7 +1,5 @@
 package com.spring.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.service.BoardService;
 import com.spring.vo.BoardVO;
+import com.spring.vo.PageCriteria;
 
 @Controller
 @RequestMapping("/board/*") //共通パス指定
@@ -87,5 +86,12 @@ public class BoardController {
 		boardService.modify(boardVO);
 		reAttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
+	}
+	
+	@RequestMapping(value="/pageListTest", method=RequestMethod.GET)
+	public void pageList(PageCriteria pageCriteria, Model model) throws Exception{
+		logger.info(" call pageList()");
+		
+		model.addAttribute("list", boardService.listCriteria(pageCriteria));
 	}
 }

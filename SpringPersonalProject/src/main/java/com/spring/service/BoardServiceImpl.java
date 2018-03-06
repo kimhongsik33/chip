@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.dao.BoardDAO;
 import com.spring.vo.BoardVO;
+import com.spring.vo.PageCriteria;
 
 @Service //Buisiness階層として認識するため「@Service」アノテーションを使用する。
 public class BoardServiceImpl implements BoardService{
@@ -39,6 +40,9 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> list() throws Exception {
 		return boardDAO.list();
 	}
-	
-	
+
+	@Override
+	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception {
+		return boardDAO.listCriteria(pageCriteria);
+	}
 }

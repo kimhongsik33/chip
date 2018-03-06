@@ -3,6 +3,7 @@ package com.spring.dao;
 import java.util.List;
 
 import com.spring.vo.BoardVO;
+import com.spring.vo.PageCriteria;
 
 public interface BoardDAO {
 	public void insert(BoardVO boardVO) throws Exception;
@@ -14,4 +15,8 @@ public interface BoardDAO {
 	public void delete(Integer boardId) throws Exception;
 	
 	public List<BoardVO> list() throws Exception;
+	
+	public List<BoardVO> listPage(int page) throws Exception;
+	
+	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception;
 }

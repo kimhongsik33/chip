@@ -1,5 +1,7 @@
 package com.spring.test;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.dao.BoardDAO;
 import com.spring.vo.BoardVO;
+import com.spring.vo.PageCriteria;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,11 +33,11 @@ public class BoardDAOTest {
 		boardVO.setWriter("KIM");
 		boardDAO.insert(boardVO);
 	}*/
-	
+	/*
 	@Test
 	public void readTest() throws Exception{
 		logger.info(boardDAO.read(1).toString());
-	}
+	}*/
 	
 	/*@Test
 	public void updateTest() throws Exception{
@@ -56,4 +59,27 @@ public class BoardDAOTest {
 		logger.info(boardDAO.list().toString());
 	}
 	*/
-}
+	
+	
+	/*@Test
+	public void listPageTest() throws Exception{
+		int page = 5;
+		List<BoardVO> list = boardDAO.listPage(page);
+		
+		for(BoardVO boardVO : list){
+			logger.info(boardVO.getBoardId() + ":" + boardVO.getSubject());
+		}
+	}*/
+	
+	@Test
+	public void listCriteriaTest() throws Exception{
+		PageCriteria pageCriteria = new PageCriteria();
+		pageCriteria.setPage(3);
+		pageCriteria.setNumPerPage(15);
+		
+		List<BoardVO> list = boardDAO.listCriteria(pageCriteria);
+		for(BoardVO boardVO : list){
+			logger.info(boardVO.getBoardId() + ":" + boardVO.getSubject());
+		}
+	}
+	}

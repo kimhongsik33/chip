@@ -14,9 +14,6 @@
 			・시각장애인이 컴퓨터의 리더기를 사용해서 웹페이지를 읽을 때 [해당부분이form이다]라고 정의해 주는 것.
 			・role은 필수 요소는 아니지만 화면용 리더기를 이용해야 하는 사람들에게도 불편함이 없는 사이트를 제공하고자 이 속성을 이용한다. 
 		 -->
-		<form role="form" method="post">
-			<input type="hidden" name="boardId" value="${boardVO.boardId}" />
-    	</form>
     	
     	<!-- BASIC FORM ELELEMNTS -->
     	<div class="row mt">
@@ -27,7 +24,7 @@
 	                  <div class="form-group">
 	                      <label class="col-sm-2 col-sm-2 control-label">Content Id</label>
 	                      <div class="col-sm-10">
-	                          <input type="text" class="form-control" name="subject" value="${boardVO.subject}" readonly="readonly">
+	                          <input type="text" class="form-control" name="boardId" value="${boardVO.boardId}" readonly="readonly">
 	                      </div>
 	                  </div>
 	                  <div class="form-group">
@@ -59,27 +56,16 @@
 	    	</div>
 	    	
 	    	<script>
-	    		//$ 는 JQuery를 의미
 	    		$(document).ready(function(){
 	    			var frmObj = $("form[role='form']");
 	    			console.log("you select the form tag");
 	    			
-	    			//modify
-	    			$("#btn_modify").on("click", function(){
-	    				frmObj.attr("action", "/board/modify");
-	    				frmObj.attr("method", "get");
+	    			$("#btn_save").on("click", function(){
 	    				frmObj.submit();
 	    			});
 	    			
-	    			//delete
-	    			$(".btn-danger").on("click", function(){
-	    				frmObj.attr("action", "/board/delete");
-	    				frmObj.submit();
-	    			});
-	    			
-	    			//back
-	    			$(".btn-info").on("click", function(){
-	    				self.location = "/board/list";
+	    			$("#btn_cancel").on("click", function(){
+	    				self.location="/board/list";
 	    			});
 	    		});
 	    	</script>

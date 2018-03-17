@@ -23,4 +23,7 @@ public interface BoardService {
 	
 	//1ページごとに何件のレコードを取得するか
 	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception;
+	
+	//データ総数を取得する
+	public int countData(PageCriteria pageCriteria) throws Exception;
 }

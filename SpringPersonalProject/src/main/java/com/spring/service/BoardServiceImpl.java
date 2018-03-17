@@ -45,4 +45,9 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception {
 		return boardDAO.listCriteria(pageCriteria);
 	}
+
+	@Override
+	public int countData(PageCriteria pageCriteria) throws Exception {
+		return boardDAO.countData(pageCriteria);
+	}
 }

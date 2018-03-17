@@ -38,3 +38,26 @@ System.out.println();문을 사용하는 방법보다 향상된 방법으로 로
   <사용방법>
   - 클래스의 @ControllerAdvice라는 어노테이션을 선언
   - 각 메소드에 @ExceptionHandler를 이용해서 적절한 타입의 Exception을 처리
+  
+
+[Paging처리]
+ 
+ # endPage, startPage 구하기
+ 
+  - endPage
+    endPage = (Math.ceil(현재페이지번호 / 페이지 목록에 나타날 페이지 수) * 페이지 목록에 나타날 페이지 수)
+  
+  - startPage
+    startPage = endPage - 페이지 목록에 나타날 페이지 수  + 1
+    
+ # totalData와 endPage의 재계산
+ 
+  - finalEndPage = Math.ceil(totalData / 한 페이지에 보여줄 글의 수)
+    if(endPage > finalEndPage){
+    	endPage = finalEndPage
+    }
+    
+ # prev, next 계산
+ 
+  - prev = start == 1 ? false : true;
+  - next = (endPage * 한 페이지에 보여줄 글의 수) > totalData ? false : true; 

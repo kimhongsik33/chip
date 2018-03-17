@@ -55,4 +55,9 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectList("listCriteria", pageCriteria);
 	}
 
+	@Override
+	public int countData(PageCriteria pageCriteria) throws Exception {
+		return sqlSession.selectOne("countData", pageCriteria);
+	}
+
 }

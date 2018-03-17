@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.service.BoardService;
 import com.spring.vo.BoardVO;
 import com.spring.vo.PageCriteria;
+import com.spring.vo.PagingMaker;
 
 @Controller
 @RequestMapping("/board/*") //共通パス指定
@@ -89,9 +90,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/pageListTest", method=RequestMethod.GET)
-	public void pageList(PageCriteria pageCriteria, Model model) throws Exception{
-		logger.info(" call pageList()");
+	public void pageListTest(PageCriteria pageCriteria, Model model) throws Exception{
+		logger.info(" call pageListTest()");
 		
 		model.addAttribute("list", boardService.listCriteria(pageCriteria));
+	}
+	
+	@RequestMapping(value="/pageList", method=RequestMethod.GET)
+	public void pageList(PageCriteria pageCriteria, Model model) throws Exception{
+		logger.info(pageCriteria.toString());
+		
+		model.addAttribute("list", boardService.listCriteria(pageCriteria));
+		PagingMaker pagingMaker = new PagingMaker();
+		pagingMaker.setPageCriteria(pageCriteria);
+		pagingMaker.setTotalData(boardService.countData(pageCriteria));
+		
+		model.addAttribute("pagingMaker", pagingMaker);
 	}
 }

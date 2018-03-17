@@ -54,4 +54,13 @@
   	]]>
   	</select>
   	
+  	<!-- data총 수를 가져오는 쿼리 -->
+  	<select id="countData" resultType="int">
+  	<![CDATA[
+  		select count(board_id)
+  		from tbl_board
+  		where board_id > 0;
+  	]]>
+  	</select>
+  	
   </mapper>

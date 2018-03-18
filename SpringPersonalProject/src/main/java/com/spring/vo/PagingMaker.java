@@ -1,5 +1,8 @@
 package com.spring.vo;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PagingMaker {
 	private int totalData; //number of total Data
 	private int startPage; //start number of Page List 
@@ -33,6 +36,27 @@ public class PagingMaker {
 		
 		prev = startPage == 1 ? false : true;
 		next = endPage * pageCriteria.getNumPerPage() >= totalData ? false : true;
+	}
+	
+	public String makeURI(int page){
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("numPerPage", pageCriteria.getNumPerPage())
+				.build();
+		
+		return uriComponents.toUriString();
+	}
+	
+	public String makeFindURI(int page){
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("numPerPage", ((FindCriteria)pageCriteria).getFindType())
+				.queryParam("keyWord", ((FindCriteria)pageCriteria).getKeyWord())
+				.build();
+		
+		return uriComponents.toUriString();
 	}
 	
 	

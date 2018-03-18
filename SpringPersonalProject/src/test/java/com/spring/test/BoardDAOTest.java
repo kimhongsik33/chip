@@ -1,7 +1,5 @@
 package com.spring.test;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -10,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.spring.dao.BoardDAO;
-import com.spring.vo.BoardVO;
-import com.spring.vo.PageCriteria;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,7 +69,7 @@ public class BoardDAOTest {
 		}
 	}*/
 	
-	@Test
+	/*@Test
 	public void listCriteriaTest() throws Exception{
 		PageCriteria pageCriteria = new PageCriteria();
 		pageCriteria.setPage(3);
@@ -81,5 +79,34 @@ public class BoardDAOTest {
 		for(BoardVO boardVO : list){
 			logger.info(boardVO.getBoardId() + ":" + boardVO.getSubject());
 		}
+	}*/
+	
+	/*//UriComponentBuilder를 이용하는 법 : org.springframework.web.util 패키지에 있음
+	@Test
+	public void uriTest() throws Exception{
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.path("/board/read")
+				.queryParam("boardId", 100)
+				.queryParam("numPerPage", 20)
+				.build();
+		
+		logger.info("/board/read/boardId=100&numPerPage=20");
+		logger.info(uriComponents.toString());
+	}*/
+	
+	@Test
+	public void uriTest2() throws Exception{
+		UriComponents uriComponents = 
+				UriComponentsBuilder.newInstance()
+				.path("/{module}/{page}")
+				.queryParam("boardId", 100)
+				.queryParam("numPerPage", 20)
+				.build()
+				.expand("board","read")   //{module}:board, {page}:read
+				.encode();
+		
+		logger.info("/board/read?boardId=100&numPerPage=20");
+		logger.info(uriComponents.toString());
 	}
-	}
+}

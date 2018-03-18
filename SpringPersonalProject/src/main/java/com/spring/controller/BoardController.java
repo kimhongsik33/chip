@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,8 +57,11 @@ public class BoardController {
 	//@RequestParam : Servlet에서 request.getParameter()과 유사한 기능이다.
 	//servlet의 request는  HttpServletRequest
 	//@RequestParam 과 HttpServletRequest의 차이점 : 문자열, 숫자 등의 형변환 여부 (@RequestParam은 가능, HttpServletRequest는 불가능) 
-	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public void read(@RequestParam("boardId") int boardId, Model model) throws Exception{
+	@RequestMapping(value="/readPage", method=RequestMethod.GET)
+	public void readPage(
+			@RequestParam("boardId") int boardId,
+			@ModelAttribute("pageCriteria") PageCriteria pageCriteria,
+			Model model) throws Exception{
 		
 		//model.addAttribute에 아래와 같이 value값만 있을 경우 리턴되는 클래스가 키값이 된다. 그때 키는 클래스의 첫문자가 소문자로 설정된다.
 		//예를 들어, 아래의 경우 [boardService.read(boardId)]의 리턴클래스는 BoardVO클래스이므로
@@ -65,28 +69,64 @@ public class BoardController {
 		model.addAttribute(boardService.read(boardId));
 	}
 	
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	/*@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String delete(@RequestParam("boardId") int boardId, RedirectAttributes reAttr) throws Exception{
 		
 		boardService.remove(boardId);
 		reAttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
+	}*/
+	
+	//RedirectAttributes은 : FlashMap 이라는 잠깐 동안 담을 수 있는 맵에 값을 담았다가 값을 보내준 후에는 증발해버리는 기능을 가진 Map
+	@RequestMapping(value="/deletePage", method=RequestMethod.GET)
+	public String deletePage(
+			@RequestParam("boardId") int boardId,
+			PageCriteria pageCriteria,
+			RedirectAttributes reAttr) throws Exception{
+		
+		boardService.remove(boardId);
+		
+		reAttr.addAttribute("page", pageCriteria.getPage());
+		reAttr.addAttribute("numPerPage", pageCriteria.getNumPerPage());
+		reAttr.addFlashAttribute("result", "success");
+		return "redirect:/board/pageList";
 	}
 	
-	//modify inquiry
-	@RequestMapping(value="/modify",  method=RequestMethod.GET)
+	/*//modify inquiry
+	@RequestMapping(value="/modifyPage",  method=RequestMethod.GET)
 	public void modifyGET(int boardId, Model model) throws Exception{
+		model.addAttribute(boardService.read(boardId));
+	}*/
+	
+	//modify inquiry
+	@RequestMapping(value="/modifyPage", method=RequestMethod.GET)
+	public void modifyGET(
+			@RequestParam("boardId") int boardId,
+			@ModelAttribute("pageCriteria") PageCriteria pageCriteria,
+			Model model) throws Exception{
+		
 		model.addAttribute(boardService.read(boardId));
 	}
 	
-	//modify process
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	/*//modify process
+	@RequestMapping(value="/modifyPage", method=RequestMethod.POST)
 	public String modifyPOST(BoardVO boardVO, RedirectAttributes reAttr) throws Exception{
 		logger.info("Called modifyPOST()");
 		
 		boardService.modify(boardVO);
 		reAttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
+	}*/
+	
+	//modify process
+	@RequestMapping(value="/modifyPage", method=RequestMethod.POST)
+	public String modifyPOST(BoardVO boardVO, PageCriteria pageCriteria, RedirectAttributes reAttr) throws Exception{
+		boardService.modify(boardVO);
+		reAttr.addAttribute("page", pageCriteria.getPage());
+		reAttr.addAttribute("numPerPage", pageCriteria.getNumPerPage());
+		reAttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/board/pageList";
 	}
 	
 	@RequestMapping(value="/pageListTest", method=RequestMethod.GET)

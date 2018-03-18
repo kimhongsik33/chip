@@ -14,6 +14,29 @@
                       <div class="content-panel">
                       <h4><i class="fa fa-angle-right"></i> List Information</h4>
                           <section id="unseen">
+                            <div align="center">
+                                <span class="col-md-12">
+		                          	<select name="findType">
+									  <option value="N"
+									      <c:out value="${findCriteria.findType==null?selected:''}" />>-------------</option>
+									  <option value="S"
+									      <c:out value="${findCriteria.findType=='S'?selected:''}" />>Subject</option>
+									  <option value="C"
+									      <c:out value="${findCriteria.findType=='C'?selected:''}" />>Content</option>
+									  <option value="W"
+									      <c:out value="${findCriteria.findType=='W'?selected:''}" />>Writer</option>
+									  <option value="SC"
+									      <c:out value="${findCriteria.findType=='SC'?selected:''}" />>Subject+Content</option>
+									  <option value="CW"
+									      <c:out value="${findCriteria.findType=='CW'?selected:''}" />>Content+Writer</option>
+									  <option value="SCW"
+									      <c:out value="${findCriteria.findType=='SCW'?selected:''}" />>Subject+Content+Writer</option>
+									</select>
+									<input type="text" name="keyWord" id="keyWord" value="${findCriteria.keyWord}" />
+									<button id="findButton">Search</button>
+								</span> 
+							</div>
+							
                             <table class="table table-bordered table-striped table-condensed">
                               <thead>
                               <tr>
@@ -42,18 +65,18 @@
     			  <div class="showback" align="center">
 					  <div class="btn-group">
 					  <c:if test="${pagingMaker.prev}">
-					      <a href="pageList${pagingMaker.makeURI(pagingMaker.startPage - 1)}">
+					      <a href="list${pagingMaker.makeURI(pagingMaker.startPage - 1)}">
 					          <button type="button" class="btn btn-theme03">◀</button>
 					      </a>
 					  </c:if>
 					  <c:forEach begin="${pagingMaker.startPage}" end="${pagingMaker.endPage}" var="pageNumber">
-					      <a href="pageList${pagingMaker.makeURI(pageNumber)}">
+					      <a href="list${pagingMaker.makeURI(pageNumber)}">
 					          <button type="button"
 					              class="<c:out value="${pagingMaker.pageCriteria.page == pageNumber ? 'btn btn-theme':'btn btn-default'}"/>">${pageNumber}</button>
 					      </a>
 					  </c:forEach>
 					  <c:if test="${pagingMaker.next && pagingMaker.endPage > 0}">
-					      <a href="pageList${pagingMaker.makeURI(pagingMaker.endPage + 1)}">
+					      <a href="list${pagingMaker.makeURI(pagingMaker.endPage + 1)}">
 					          <button type="button" class="btn btn-theme03">▶</button>
 					      </a>
 					  </c:if>

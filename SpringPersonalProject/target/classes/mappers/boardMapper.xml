@@ -63,4 +63,55 @@
   	]]>
   	</select>
   	
+  	
+  	<!-- MyBatisで提供する<include>, <sql> -->
+  	<sql id="findSQL">
+  		<if test="findType != null">
+  			<if test = "findType == 'S'.toString()">
+  				and subject like CONCAT('%', #{keyWord}, '%')
+  			</if>
+  			<if test = "findType == 'C'.toString()">
+  				and content like CONCAT('%', #{keyWord}, '%')
+  			</if>
+  			<if test = "findType == 'W'.toString()">
+  				and writer like CONCAT('%', #{keyWord}, '%')
+  			</if>
+  			<if test = "findType == 'SC'.toString()">
+  				and (subject like CONCAT('%', #{keyWord}, '%') or 
+  				     content like CONCAT('%', #{keyWord}, '%'))
+  			</if>
+  			<if test = "findType == 'CW'.toString()">
+  				and (content like CONCAT('%', #{keyWord}, '%') or 
+  				     writer like CONCAT('%', #{keyWord}, '%'))
+  			</if>
+  			<if test = "findType == 'SCW'.toString()">
+  				and (subject like CONCAT('%', #{keyWord}, '%') or 
+  				     content like CONCAT('%', #{keyWord}, '%') or
+  				     writer like CONCAT('%', #{keyWord}, '%'))
+  			</if>
+  		</if>
+  	</sql>
+  	
+  	<select id="listFindCriteria" resultType="BoardVO">
+  	<![CDATA[
+  		select board_id As boardId, subject, content, writer, register_date As registerDate, hit
+  		from tbl_board
+  		where board_id > 0
+  	]]>
+  		<include refid="findSQL" />
+  	<![CDATA[
+  		order by board_id desc
+  		limit #{startPage}, #{numPerPage}
+  	]]>
+  	</select>
+  	
+  	<select id="findCountData" resultType="int">
+  	<![CDATA[
+  		select count(board_id)
+  		from tbl_board
+  		where board_id > 0
+  	]]>
+  	<include refid="findSQL" />
+  	</select>
+  	
   </mapper>

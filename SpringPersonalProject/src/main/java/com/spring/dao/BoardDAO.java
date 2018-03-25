@@ -3,6 +3,7 @@ package com.spring.dao;
 import java.util.List;
 
 import com.spring.vo.BoardVO;
+import com.spring.vo.FindCriteria;
 import com.spring.vo.PageCriteria;
 
 public interface BoardDAO {
@@ -19,6 +20,9 @@ public interface BoardDAO {
 	public List<BoardVO> listPage(int page) throws Exception;
 	
 	public List<BoardVO> listCriteria(PageCriteria pageCriteria) throws Exception;
-	
 	public int countData(PageCriteria pageCriteria) throws Exception;
+	
+	public List<BoardVO> listFindCriteria(FindCriteria findCriteria) throws Exception;
+	public int findCountData(FindCriteria findCriteria) throws Exception;
 }
+ 

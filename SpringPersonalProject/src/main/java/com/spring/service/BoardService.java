@@ -3,6 +3,7 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.vo.BoardVO;
+import com.spring.vo.FindCriteria;
 import com.spring.vo.PageCriteria;
 
 public interface BoardService {
@@ -26,4 +27,8 @@ public interface BoardService {
 	
 	//データ総数を取得する
 	public int countData(PageCriteria pageCriteria) throws Exception;
+	
+	
+	public List<BoardVO> listFindCriteria(FindCriteria findCriteria) throws Exception;
+	public int findCountData(FindCriteria findCriteria) throws Exception;
 }

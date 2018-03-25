@@ -1,5 +1,7 @@
 package com.spring.test;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -8,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.spring.dao.BoardDAO;
+import com.spring.vo.BoardVO;
+import com.spring.vo.FindCriteria;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -95,7 +97,7 @@ public class BoardDAOTest {
 		logger.info(uriComponents.toString());
 	}*/
 	
-	@Test
+	/*@Test
 	public void uriTest2() throws Exception{
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance()
@@ -108,5 +110,22 @@ public class BoardDAOTest {
 		
 		logger.info("/board/read?boardId=100&numPerPage=20");
 		logger.info(uriComponents.toString());
+	}*/
+	
+	@Test
+	public void testFind() throws Exception{
+		FindCriteria findCriteria = new FindCriteria();
+		findCriteria.setPage(1);
+		findCriteria.setFindType("S");
+		findCriteria.setKeyWord("test");
+		
+		logger.info("===============print test result================");
+		List<BoardVO> list = boardDAO.listFindCriteria(findCriteria);
+		for(BoardVO boardVO : list){
+			logger.info(boardVO.getBoardId() + ":" + boardVO.getSubject());
+		}
+		
+		logger.info("===============find count test result================");
+		logger.info("findCountData : " + boardDAO.findCountData(findCriteria));
 	}
 }

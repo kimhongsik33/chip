@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.vo.BoardVO;
+import com.spring.vo.FindCriteria;
 import com.spring.vo.PageCriteria;
 
 @Repository
@@ -58,6 +59,16 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public int countData(PageCriteria pageCriteria) throws Exception {
 		return sqlSession.selectOne("countData", pageCriteria);
+	}
+
+	@Override
+	public List<BoardVO> listFindCriteria(FindCriteria findCriteria) throws Exception {
+		return sqlSession.selectList("listFindCriteria", findCriteria);
+	}
+
+	@Override
+	public int findCountData(FindCriteria findCriteria) throws Exception {
+		return sqlSession.selectOne("findCountData", findCriteria);
 	}
 
 }

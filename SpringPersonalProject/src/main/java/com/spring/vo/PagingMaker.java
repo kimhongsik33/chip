@@ -52,7 +52,8 @@ public class PagingMaker {
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
-				.queryParam("numPerPage", ((FindCriteria)pageCriteria).getFindType())
+				.queryParam("numPerPage", pageCriteria.getNumPerPage())
+				.queryParam("findType", ((FindCriteria)pageCriteria).getFindType())
 				.queryParam("keyWord", ((FindCriteria)pageCriteria).getKeyWord())
 				.build();
 		

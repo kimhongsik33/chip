@@ -61,3 +61,59 @@ System.out.println();문을 사용하는 방법보다 향상된 방법으로 로
  
   - prev = start == 1 ? false : true;
   - next = (endPage * 한 페이지에 보여줄 글의 수) > totalData ? false : true; 
+  
+
+[MyBatis Expression]
+
+ #if
+ 	<if test="content != null">
+ 		...
+ 	</if>
+ 	
+ #choose(when, otherwise)
+ 	<choose>
+ 		<when test="content != null">
+ 			...
+ 		</when>
+ 		<when test"product != null and product.code != null">
+ 			
+ 		</when>
+ 		<otherwise>
+ 			...
+ 		</otherwise>
+ 	</choose>
+ 	
+ #trim(where, set)
+ 	update Member set userName = #{userName}, email = #{email}, tel = #{tel} where id = #{id}
+ 	//最後にある「、」を削除するケース
+	 <update id = "updateMember" parameterType = "com.spring.XXXXVO">	
+	 	update Member
+	 	<trim prefix="set" suffixOverrides=",">
+	 		<if test="username != null">userName =#{userName}, </if>
+	 		<if test="email != null">email =#{email}, </if>
+	 		<if test="tel != null">tel =#{tel} </if>
+	 	</trim>
+	 	where id = #{id}
+ 	</update>
+ 	
+ 	select * from Employee where userId = #{userId} and pwd = #{pwd} and email = #{email}
+ 	//最初にある演算子（AND/OR）を削除するケース
+ 	<select id="selectInfo" parameterType = "com.spring.XXXXVO" resultType = "memberResultMap">
+ 		select * from Employee
+ 		<trim prefix = "where" prefixOverrides="AND | OR">
+ 			<if test="userName != null">userName =#{userName} </if>
+ 			<if test="pwd != null">AND pwd =#{pwd} </if>
+ 			<if test="email != null">and email =#{email} </if>
+ 		</trim>
+ 	</select>
+ 	
+ 	
+ #forEach
+ 	<foreach
+ 		item = "item"
+ 		index = "index"
+ 		collection = "list"
+ 		open = "(" seperator = "," close = ")">
+ 		
+ 		#{item}
+ 	</foreach>	 

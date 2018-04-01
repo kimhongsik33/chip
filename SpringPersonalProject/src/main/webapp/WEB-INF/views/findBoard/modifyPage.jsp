@@ -19,7 +19,7 @@
     	<div class="row mt">
     		<div class="col-lg-12">
             <div class="form-panel">
-	            <form class="form-horizontal style-form" role="form" method="post">
+	            <form class="form-horizontal style-form" role="form" method="post" action="modifyPage">
 	            	<input type="hidden" name="page" value="${findCriteria.page}" />
 	            	<input type="hidden" name="numPerPage" value="${findCriteria.numPerPage}" />
 					<input type="hidden" name="findType" value="${findCriteria.findType}" />
@@ -73,7 +73,7 @@
 	    			
 	    			$("#btn_cancel").on("click", function(){
 	    				//self.location="/board/list";
-	    				self.location="/findBoard/pageList?page=${pageCriteria.page}&numPerPage=${pageCriteria.numPerPage}"
+	    				self.location="/findBoard/pageList?page=${findCriteria.page}&numPerPage=${findCriteria.numPerPage}"
 	    				+"&findType=${findCriteria.findType}&keyWord=${findCriteria.keyWord}";
 	    			});
 	    		});

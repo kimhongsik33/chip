@@ -80,9 +80,12 @@
 					          <button type="button" class="btn btn-theme03">▶</button>
 					      </a>
 					  </c:if>
-					  </div>      				
+					  </div>
+      			      <div align="center">
+      			          <br/>
+      			          <button id="writeButton">Search</button><br/><br/>
+      			      </div>
       			  </div><!-- /showback -->
-      				
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
 		</section><!--/wrapper -->
@@ -102,6 +105,10 @@
             		 "list${pagingMaker.makeURI(1)}"
             		 + "&findType=" + $("select option:selected").val()
             		 + "&keyWord=" + $("#keyWord").val();
+              });
+              
+              $('#writeButton').on("click", function(e){
+            	  self.location = "/findBoard/write";
               });
           });
       </script>

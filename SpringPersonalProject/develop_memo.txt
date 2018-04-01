@@ -116,4 +116,114 @@ System.out.println();문을 사용하는 방법보다 향상된 방법으로 로
  		open = "(" seperator = "," close = ")">
  		
  		#{item}
- 	</foreach>	 
+ 	</foreach>	
+ 	
+ 	
+ 	
+[SOAP기반 웹 서비스]
+ - SOA(Service Oriented Architecture)
+   : 해당 서비스를 서로 조합해서 업무 기능을 구현한 어플리케이션을 만들어 내는 소프트웨어 아키텍쳐
+ 
+ - DATA가 ----> XML로 표현된다.
+ - UDDI(Universal Description, Discovery and Integration)
+   : 웹서비스를 등록하고 검색하기 위한 저장소로 웹서비스를 공개적으로 접근, 검색이 가능하도록 한 공개된 레지스터리 
+ 
+ - WSDL(Web Service Description Language)
+   : 웹 서비스 기술 언어로서 XML로 기술된다.
+   
+   <definitions>
+       <!-- Service Interface Start-->
+       <types>데이터 타입선언</types>
+       <message>메서드의 인자와 리턴값 선언</message>
+       <portType>
+                           인터페이스 정의
+          <operation>메서드 선언</operation>
+       </portType>
+       <!-- Service Interface End-->
+       
+       <!-- Service Implement Start-->
+       <binding>실제 네트워크 프로토콜과  portType매핑</binding>
+       <service>
+                              서비스정의(Endpoint)
+           <port>웹서비스URL</port>
+       </service>
+       <!-- Service Implement End-->
+   </definitions>
+ 
+ # SOAP ?
+  - HTTP, HTTPS, SMTP등을 통해서 XML기반의 메세지를 컴퓨터 네트워크 상에서 교환하는 프로토콜
+  
+  *장점 : 동적바인딩 가능, 독립된 모듈, 서비스 연결이 느슨, 서비스 조립 가능, 플랫폼에 무관함.
+  *단점 : HTTP상에서 전달하기에 무겁다, 개발 난이도가 높다.
+  
+ [RESTful 기반 웹서비스]
+ 
+ #RESTful(Representational State Transfer)
+  - HTTP프로토콜로 데이터를 전달하는 프레임워크
+  - 클라이언트와 서버간의 구성요소를 엄격하게 분리하여 구현을 단순화
+  - 서버와 클라이언트를 독립적으로 구현함으로써, 확장성을 향상
+  - 핵심은 웹에 개방되어 있는 리소스를 이용
+  - REST는 웹에 개방된 리소스를 원격에서 또는 로컬에서 쉽게 이용할 수 있는  웹응용을 장착
+  - REST아키텍쳐 스타일에 따라 정의되고 이용되는 서비스나 응용프로그램을 RESTful웹 서비스라고 부른다.
+  
+  ##SOA(Service Oriented Architecture)
+  ##ROA(Resource Oriented Architecture)
+  
+  ###SOAP기반의 웹 서비스는 SOA구조에 따라서 UDDI레지스트리를 통해서 웹서비스를 등록하고, 탐색하고, 바인딩해서 이용
+     -상호 통신간 프로그램들이 잘 이해할 수 있는 문법에 따라 개발되었고, 그에 따라서 개발자들은 웹서비스의 기본 스펙을 알아야 하는 고난이도의 프로그래밍 능력이 요구됨
+     -사람보다는 기계가 우선적으로 이해하기 쉬운 구조이므로 환경설정 및 개발 환경이 필요 (동적 프로세싱 중심)
+     
+  ###RESTful웹서비스는 리소스를 등록하고 저장하는 중간 매개체 없이 리소스 제공자가 직접 요청자에게 제공
+     -인터넷 서비스 업체들이 응용 개발자들에 손쉬운 데이터 제공을 목적으로 출발함
+     -기계보다는 사람이 이해하기 쉽도록 인터넷 기본(HTTP/XML)이외에 별도의 개발 / 실행 환경이 필요 없음.
+     
+  #@RestController
+   :리소스 자체를 반환하는데 사용되는 어노테이션이다 (JSON, XML, 문자열)
+                               application/JSON
+                               text/html
+   
+  # Jackson-databind
+   자동으로 JSON타입으로 변환시켜주는 라이브러리 (VO타입으로 뷰에 리턴을 해도 Jackson-databind라이브러리에 의해서 자동으로 JSON으로 변환됨)
+   pom.xml에 적용필요함.
+   
+
+[WEB의 상태코드]
+ # 100번대 : 데이터의 일부를 서버가 받은 상태(처리중인 상태)
+ # 200번대 : 정상적인 처리된 상태
+    200 ---> 정상처리
+    204 ---> 정상처리 되었으나, 서버에 보낼 데이터가 없음
+    
+ # 300번대 : 다른 URL처리
+    301 ---> 요청한 URL이 새로 변경되었음
+    304 ---> 기존의 데이터와 변경된 것이 없음
+ 
+ # 400번대 :
+    400 ---> 요청에 문제가 있어서 서버에서 인식할 수 없음
+    403 ---> 서버에서 허락되지 않음
+    404 ---> 요청 URL을 찾을 수 없음
+    406 ---> 전송 방식이 허락되지 않음(REST방식에서 자주 나타나는 상태코드)
+    
+ # 500번대 : 
+    500 ---> 서버에서 처리시 문제 발생 (프로그램 내부적인 오류)
+    502 ---> 게이트웨이, 프록시 상태의 문제(과부하)
+    503 ---> 일시적인 서비스 중단 상태
+    504 ---> 지정된 처리시간이 지나서 처리되지 못하는 경우
+    
+    
+ Advanced Rest Client : REST통신 테스트 용 크롭 어플리케이션.
+ 
+
+[AJAX]
+ : Asynchronous Javascript and XML
+ : 동적 웹 어플리케이션을 구현 하는데 필요한 기술
+  - 장점
+   * 비동기 방식으로 새로고침 없이 받은 데이터를 가공하여 표시할 수 있다.
+   * 갱신시킬 페이지에 소량의 데이터 블록만 서버로 수신하기 때문에 서버 및 네트워크 부하를 줄일 수 있다.
+
+[REST/AJAX]
+ # 최근에는 REST + AJAX방식을 이용해서 웹어플리케이션을 제작한다.
+ 
+  : REST는 데이터를 리턴(호출)하고 사용하는 방식이라면,
+    AJAX는 그러한 데이터를 이용하는 방법
+    
+  

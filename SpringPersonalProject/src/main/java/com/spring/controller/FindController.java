@@ -99,4 +99,22 @@ public class FindController {
 			return "redirect:/findBoard/list";
 	}
 	
+	//作成ページに移動
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public void writeGET() throws Exception{
+		logger.info("writeGET()..");
+	}
+	
+	//DB作成処理
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String writePOST(BoardVO boardVO, RedirectAttributes reAttr) throws Exception{
+		logger.info("writePOST()..");
+		
+		boardService.write(boardVO);
+		
+		reAttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/findBoard/list";
+	}
+	
 }	

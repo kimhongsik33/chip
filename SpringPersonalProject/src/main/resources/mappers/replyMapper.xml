@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.spring.dao.ReplyDAO">
-  	<select id="list" resultType="ReplyVO">
+  	<select id="replyList" resultType="com.spring.vo.ReplyVO">
   		select
   		    reply_id As replyId
   		  , board_id As boardId
@@ -29,9 +29,28 @@
   		where reply_id = #{replyId}
   	</update>
   	
-  	<delete id="delete">
+  	<delete id="replyDelete">
   		delete from tbl_reply
   		where reply_id = #{replyId}
   	</delete>
   	
+  	<!-- reply List Page -->
+  	<select id="replyListPage" resultType="ReplyVO">
+  		select
+  		    reply_id As replyId
+  		  , board_id As boardId
+  		  , replyContent
+  		  , replyer
+  		  , register_date As registerDate
+  		  , update_date As updateDate
+  		from tbl_reply
+  		where board_id = #{boardId}
+  		order by reply_id desc
+  		limit #{pageCriteria.startPage}, #{pageCriteria.numPerPage}
+  	</select>
+  	
+  	<!--  reply Count All -->
+  	<select id="replyCount" resultType="int">
+  		select count(board_id) from tbl_reply where board_id = #{boardId}
+  	</select>
   </mapper>

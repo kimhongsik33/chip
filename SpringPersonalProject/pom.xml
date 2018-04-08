@@ -123,6 +123,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		
 		<!-- MySQLのJDBCコネクションLibrary -->
 		<dependency>
 		    <groupId>mysql</groupId>

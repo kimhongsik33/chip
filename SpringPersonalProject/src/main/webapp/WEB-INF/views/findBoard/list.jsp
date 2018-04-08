@@ -33,7 +33,7 @@
 									      <c:out value="${findCriteria.findType=='SCW'?'selected':''}" />>Subject+Content+Writer</option>
 									</select>
 									<input type="text" name="keyWord" id="keyWord" value="${findCriteria.keyWord}" />
-									<button id="findButton">Search</button>
+									<button id="findButton" class="btn btn-primary">Search</button>
 								</span> 
 							</div>
 							
@@ -81,10 +81,10 @@
 					      </a>
 					  </c:if>
 					  </div>
-      			      <div align="center">
+      			      <!-- <div align="center">
       			          <br/>
       			          <button id="writeButton">Search</button><br/><br/>
-      			      </div>
+      			      </div> -->
       			  </div><!-- /showback -->
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->

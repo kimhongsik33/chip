@@ -48,7 +48,7 @@
 	                  <div class="form-group">
 	                      <label class="col-sm-2 col-sm-2 control-label">Writer</label>
 	                      <div class="col-sm-10">
-	                          <input type="text" class="form-control" name="writer" value="${boardVO.writer}">
+	                          <input type="text" class="form-control" name="writer" value="${boardVO.writer}" readonly="readonly">
 	                      </div>
 	                  </div>
 				</form>
@@ -73,7 +73,7 @@
 	    			
 	    			$("#btn_cancel").on("click", function(){
 	    				//self.location="/board/list";
-	    				self.location="/findBoard/pageList?page=${findCriteria.page}&numPerPage=${findCriteria.numPerPage}"
+	    				self.location="/findBoard/list?page=${findCriteria.page}&numPerPage=${findCriteria.numPerPage}"
 	    				+"&findType=${findCriteria.findType}&keyWord=${findCriteria.keyWord}";
 	    			});
 	    		});
